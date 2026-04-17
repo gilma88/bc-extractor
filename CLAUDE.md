@@ -21,19 +21,20 @@ Show the extracted data in a clean list and ask "Shall I save this contact?" —
 
 ### Step 3 — Save
 
-On confirmation, use WebFetch (GET) to call the Apps Script endpoint with URL-encoded query parameters:
+On confirmation, build a URL with all fields as URL-encoded query parameters and present it to the user as a single tap-to-save link.
 
 ```
 Base URL: https://script.google.com/macros/s/AKfycby9TEYk19wqiNVVpipRIs9qe2vHrTQrFeJRzlzICoDTh0yyPUEUmbgrSQ_qgIkKx42-/exec
 Params:   ?company=...&name=...&title=...&phone=...&email=...
 ```
 
-URL-encode all values (spaces → `%20`, `+` → `%2B`, `@` → `%40`). Follow redirects. Use Node.js `https.get` with manual redirect handling if WebFetch fails.
+URL-encode all values (spaces → `%20`, `+` → `%2B`, `@` → `%40`, `&` → `%26`).
 
-### Step 4 — Report
+Show the message:
+> Tap the link below to save the contact — your browser will open briefly and show `{"status":"ok"}` when done:
+> [Save contact →](FULL_URL_HERE)
 
-- Response `{"status":"ok"}` → confirm contact was saved to the sheet
-- Response `{"status":"error"}` → show the error message
+Do not attempt WebFetch — Google blocks server-side calls to Apps Script.
 
 ---
 
