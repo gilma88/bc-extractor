@@ -28,7 +28,7 @@ function doGet(e) {
       e.parameter.company || '',
       e.parameter.name    || '',
       e.parameter.title   || '',
-      e.parameter.phone   || '',
+      "'" + (e.parameter.phone || ''),
       e.parameter.email   || ''
     ]);
 
